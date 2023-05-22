@@ -7,6 +7,14 @@
     "renovate",
     "{{{manager}}}"
   ],
+  "packageRules": [
+    {
+      "description": "Replace Dockerhub with ghcr.io for renovate",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["docker.io/renovate/renovate"],
+      "replacementName": "ghcr.io/renovatebot/renovate"
+    }
+  ],
   "regexManagers": [
     {
       "fileMatch": [
