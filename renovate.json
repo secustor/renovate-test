@@ -3,5 +3,19 @@
   "extends": [
     "config:base"
   ],
-  "addLabels": ["renovate", "{{{manager}}}"]
+  "addLabels": [
+    "renovate",
+    "{{{manager}}}"
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "^README.md$"
+      ],
+      "matchStrings": [
+        "(?<depName>[\\w/\\.]+):(?<currentValue>[^\\s]+)"
+      ],
+      "datasourceTemplate": "docker"
+    }
+  ]
 }
