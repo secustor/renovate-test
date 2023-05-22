@@ -12,7 +12,9 @@
       "description": "Replace Dockerhub with ghcr.io for renovate",
       "matchDatasources": ["docker"],
       "matchPackageNames": ["docker.io/renovate/renovate"],
-      "replacementName": "ghcr.io/renovatebot/renovate"
+      "replacementName": "ghcr.io/renovatebot/renovate",
+      "automerge": true,
+      "automergeType": "branch"
     }
   ],
   "regexManagers": [
@@ -24,6 +26,14 @@
         "(?<depName>[\\w/\\.]+):(?<currentValue>[^\\s]+)"
       ],
       "datasourceTemplate": "docker"
+    },
+    {
+      "fileMatch": ["(^|/)Dockerfile$"],
+      "matchStrings": [
+        "renovate: datasource=(?<datasource>.*?) depName=(?<depName>\\S*)( versioning=(?<versioning>.*?))?( extractVersion=(?<extractVersion>.*?))?\\nARG .*?_VERSION=(?<currentValue>.*)\\s"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
+      "extractVersionTemplate": "{{#if (equals extractVersion 'true')}}^v(?<version>\\S+){{/if}}"
     }
   ]
 }
